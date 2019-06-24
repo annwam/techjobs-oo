@@ -101,7 +101,7 @@ public class JobData {
     }
 
     public JobFieldData<Employer> getEmployers() {
-        return employers;  
+        return employers;
     }
 
     public JobFieldData<Location> getLocations() {

@@ -58,6 +58,7 @@ public class JobController {
         // redirect to the job detail view for the new Job.
 
         model.addAttribute("jobById",job);
+        
 
         return "job-detail";
     }
