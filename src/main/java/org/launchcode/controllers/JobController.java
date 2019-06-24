@@ -42,24 +42,27 @@ public class JobController {
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public String add(Model model, @Valid JobForm jobForm, Errors errors) {
 
-        Job job=new Job();
+        Job job = new Job();
+//
+        if (errors.hasErrors()) {
+            return "new-job";
+        }
+        model.addAttribute(new JobForm());
 
-        //if (!errors.hasErrors()){
-            job.setName(jobForm.getName());
-            job.setEmployer(jobData.getEmployers().findById(jobForm.getEmployerId()));
-            job.setCoreCompetency(jobData.getCoreCompetencies().findById(jobForm.getCoreCompetencyId()));
-            job.setLocation(jobData.getLocations().findById(jobForm.getLocationId()));
-            job.setPositionType(jobData.getPositionTypes().findById(jobForm.getPositionTypeId()));
+        job.setName(jobForm.getName());
+        job.setEmployer(jobData.getEmployers().findById(jobForm.getEmployerId()));
+        job.setCoreCompetency(jobData.getCoreCompetencies().findById(jobForm.getCoreCompetencyId()));
+        job.setLocation(jobData.getLocations().findById(jobForm.getLocationId()));
+        job.setPositionType(jobData.getPositionTypes().findById(jobForm.getPositionTypeId()));
 
-            jobData.add(job);
-        //}
+
         // TODO #6 - Validate the JobForm model, and if valid, create a
         // new Job and add it to the jobData data store. Then
         // redirect to the job detail view for the new Job.
 
-        model.addAttribute("jobById",job);
-        
-
-        return "job-detail";
+        // model.addAttribute("jobById",job);
+        jobData.add(job);
+        return "redirect:?id=" + job.getId();
     }
+
 }
